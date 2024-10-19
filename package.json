@@ -1,6 +1,9 @@
 {
   "name": "multiparts",
   "version": "0.0.1",
+  "repository": {
+    "url": "git+https://github.com/mtsewrs/multiparts.git"
+  },
   "main": "index.js",
   "types": "index.d.ts",
   "exports": {
