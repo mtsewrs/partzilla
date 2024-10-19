@@ -1,5 +1,5 @@
 {
-  "name": "multiparts-darwin-arm64",
+  "name": "partzilla-darwin-arm64",
   "version": "0.0.4",
   "os": [
     "darwin"
@@ -7,12 +7,13 @@
   "cpu": [
     "arm64"
   ],
-  "main": "multiparts.darwin-arm64.node",
+  "main": "partzilla.darwin-arm64.node",
   "files": [
-    "multiparts.darwin-arm64.node"
+    "partzilla.darwin-arm64.node"
   ],
   "license": "MIT",
   "engines": {
     "node": ">= 10"
-  }
+  },
+  "repository": "partzilla"
 }

@@ -1,3 +1,3 @@
-# `multiparts-darwin-x64`
+# `partzilla-darwin-x64`
 
-This is the **x86_64-apple-darwin** binary for `multiparts`
+This is the **x86_64-apple-darwin** binary for `partzilla`

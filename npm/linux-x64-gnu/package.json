@@ -1,5 +1,5 @@
 {
-  "name": "multiparts-linux-x64-gnu",
+  "name": "partzilla-linux-x64-gnu",
   "version": "0.0.4",
   "os": [
     "linux"
@@ -7,14 +7,15 @@
   "cpu": [
     "x64"
   ],
-  "main": "multiparts.linux-x64-gnu.node",
+  "main": "partzilla.linux-x64-gnu.node",
   "files": [
-    "multiparts.linux-x64-gnu.node"
+    "partzilla.linux-x64-gnu.node"
   ],
   "license": "MIT",
   "engines": {
     "node": ">= 10"
   },
+  "repository": "partzilla",
   "libc": [
     "glibc"
   ]

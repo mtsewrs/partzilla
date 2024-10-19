@@ -1,3 +1,3 @@
-# `multiparts-win32-x64-msvc`
+# `partzilla-win32-x64-msvc`
 
-This is the **x86_64-pc-windows-msvc** binary for `multiparts`
+This is the **x86_64-pc-windows-msvc** binary for `partzilla`

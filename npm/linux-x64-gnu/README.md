@@ -1,3 +1,3 @@
-# `multiparts-linux-x64-gnu`
+# `partzilla-linux-x64-gnu`
 
-This is the **x86_64-unknown-linux-gnu** binary for `multiparts`
+This is the **x86_64-unknown-linux-gnu** binary for `partzilla`
