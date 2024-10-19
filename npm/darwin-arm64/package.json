@@ -15,5 +15,8 @@
   "engines": {
     "node": ">= 10"
   },
-  "repository": "partzilla"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mtsewrs/partzilla.git"
+  }
 }

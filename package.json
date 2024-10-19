@@ -54,9 +54,9 @@
   },
   "packageManager": "bun@1.1.26",
   "optionalDependencies": {
-    "partzilla-win32-x64-msvc": "0.0.5",
-    "partzilla-darwin-x64": "0.0.5",
-    "partzilla-linux-x64-gnu": "0.0.5",
-    "partzilla-darwin-arm64": "0.0.5"
+    "partzilla-win32-x64-msvc": "0.0.6",
+    "partzilla-darwin-x64": "0.0.6",
+    "partzilla-linux-x64-gnu": "0.0.6",
+    "partzilla-darwin-arm64": "0.0.6"
   }
 }
