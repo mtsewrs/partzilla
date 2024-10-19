@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "display": "Default",
+  "compilerOptions": {
+    "outDir": "dist",
+    "types": ["@types/bun"],
+    "emitDeclarationOnly": true,
+    "composite": false,
+    "declaration": true,
+    "allowJs": false,
+    "moduleResolution": "Bundler",
+    "module": "ESNext",
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "lib": ["esnext", "ESNext.Array"],
+    "target": "ESNext",
+    "declarationMap": false,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "inlineSources": false,
+    "isolatedModules": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "preserveWatchOutput": true,
+    "strict": true,
+    "strictNullChecks": true
+  },
+  "exclude": ["node_modules"],
+  "include": ["lib/*"]
+}
