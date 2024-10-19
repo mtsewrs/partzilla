@@ -1,8 +1,14 @@
 {
   "name": "partzilla",
   "version": "0.0.5",
+  "homepage": "https://github.com/mtsewrs/partzilla",
   "repository": {
+    "type": "git",
     "url": "git+https://github.com/mtsewrs/partzilla.git"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "access": "public"
   },
   "main": "index.js",
   "types": "index.d.ts",
@@ -48,9 +54,9 @@
   },
   "packageManager": "bun@1.1.26",
   "optionalDependencies": {
-    "multiparts-win32-x64-msvc": "0.0.4",
-    "multiparts-darwin-x64": "0.0.4",
-    "multiparts-linux-x64-gnu": "0.0.4",
-    "multiparts-darwin-arm64": "0.0.4"
+    "partzilla-win32-x64-msvc": "0.0.5",
+    "partzilla-darwin-x64": "0.0.5",
+    "partzilla-linux-x64-gnu": "0.0.5",
+    "partzilla-darwin-arm64": "0.0.5"
   }
 }
