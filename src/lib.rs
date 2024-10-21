@@ -26,20 +26,25 @@ pub fn get_parts(content_type: String, body: Buffer) -> Result<Vec<MultipartFiel
   if !parser.is_valid() {
     return Err(Error::from_reason("Boundry is empty"));
   }
-  parser.set_body(Bytes::from(body.to_vec()));
-  let mut collected = vec![];
+  parser.set_body(Bytes::copy_from_slice(body.as_ref()));
+  let mut collected = Vec::with_capacity(10);
   while let Some(part) = parser.get_next_part() {
     let headers = part.1;
-    let parsed = parse_content_disposition(headers.get("content-disposition").unwrap());
-    let name = parsed.get("name").cloned().flatten();
-    let filename = parsed.get("filename").cloned().flatten();
-    let content_type = headers.get("content-type").cloned();
-    collected.push(MultipartField {
-      name,
-      filename,
-      data: part.0.to_vec().into(),
-      content_type,
-    });
+    if let Some(content_disposition) = headers.get("content-disposition") {
+      let parsed = parse_content_disposition(content_disposition);
+      let name = parsed.get("name").cloned().flatten();
+      let filename = parsed.get("filename").cloned().flatten();
+      let content_type = headers.get("content-type").cloned();
+
+      collected.push(MultipartField {
+        name,
+        filename,
+        data: Buffer::from(part.0.as_ref()),
+        content_type,
+      });
+    } else {
+      return Err(Error::from_reason("Missing content-disposition header"));
+    }
   }
 
   Ok(collected)
