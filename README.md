@@ -2,7 +2,7 @@
   <img align="center" height="300" src="https://raw.githubusercontent.com/mtsewrs/partzilla/refs/heads/master/assets/partzilla.webp" />
 </p>
 
-<p align="center">⚡️ Multipart parser written in rust & typescript</p>
+<p align="center">⚡️ Multipart parser written in rust</p>
 <!-- <p align="center">
   <a href="https://www.npmjs.com/~sactcore" target="_blank"><img src="https://img.shields.io/npm/v/@sact/core.svg" alt="NPM Version" /></a>
   <a href="https://www.npmjs.com/~sactcore" target="_blank"><img src="https://img.shields.io/npm/dm/@sact/core.svg" alt="NPM Downloads" /></a>
@@ -10,18 +10,50 @@
 
 # Partzilla
 
-To install dependencies:
+Fast and simple multipart parser
 
 ```bash
-pnpm install
+pnpm install partzilla
+bun install partzilla
+yarn install partzilla
 ```
 
-Build and test
+## Usage node
 
-```bash
-pnpm build
+```typescript
+import { getParts } from "partzilla";
+import { getBodyBuffer } from "partzilla/utils";
+
+createServer(async (req, res) => {
+  const body = await getBodyBuffer(req);
+  const contentType = req.headers["content-type"];
+  const response = getParts(contentType, body); // const response: MultipartField[]
+  res.end("Node!");
+});
 ```
 
-```bash
-pnpm test
+## Usage bun
+
+```typescript
+import { getParts } from "partzilla";
+
+Bun.serve({
+  async fetch(req) {
+    const body = await req.arrayBuffer();
+    const contentType = req.headers.get("content-type");
+    const response = getParts(contentType, body); // const response: MultipartField[]
+    return new Response("Bun!");
+  },
+});
+```
+
+## MultipartField
+
+```typescript
+interface MultipartField {
+  name?: string;
+  data: Buffer;
+  filename?: string;
+  contentType?: string;
+}
 ```

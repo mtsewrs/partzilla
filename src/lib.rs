@@ -20,7 +20,7 @@ pub struct MultipartField {
   pub content_type: Option<String>,
 }
 
-#[napi]
+#[napi(ts_args_type = "content_type: string, body: Buffer | ArrayBuffer")]
 pub fn get_parts(content_type: String, body: Buffer) -> Result<Vec<MultipartField>> {
   let mut parser = MultipartParser::new(content_type.as_str())?;
   if !parser.is_valid() {

@@ -1,6 +1,6 @@
 [package]
 edition = "2021"
-name = "multiparts"
+name = "partzilla"
 version = "0.0.0"
 
 [lib]
@@ -11,6 +11,7 @@ crate-type = ["cdylib"]
 napi = { version = "2.12.2", default-features = false, features = ["napi4"] }
 napi-derive = "2.12.2"
 bytes = "1.7.2"
+memmem = "*"
 
 [build-dependencies]
 napi-build = "2.0.1"

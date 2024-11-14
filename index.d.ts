@@ -9,4 +9,4 @@ export interface MultipartField {
   filename?: string
   contentType?: string
 }
-export declare function getParts(contentType: string, body: Buffer): Array<MultipartField>
+export declare function getParts(content_type: string, body: Buffer | ArrayBuffer): Array<MultipartField>
