@@ -18,7 +18,7 @@
       "node": "./index.js"
     },
     "./utils": {
-      "types": "./lib/read.ts",
+      "types": "./dist/read.d.ts",
       "require": "./dist/read.js",
       "import": "./dist/read.mjs"
     }
