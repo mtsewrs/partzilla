@@ -10,17 +10,13 @@
     "registry": "https://registry.npmjs.org/",
     "access": "public"
   },
-  "main": "index.js",
-  "types": "index.d.ts",
+  "main": "./dist/partzilla.js",
+  "types": "./dist/partzilla.d.ts",
   "exports": {
     ".": {
-      "types": "./index.d.ts",
-      "node": "./index.js"
-    },
-    "./utils": {
-      "types": "./dist/read.d.ts",
-      "require": "./dist/read.js",
-      "import": "./dist/read.mjs"
+      "types": "./dist/partzilla.d.ts",
+      "import": "./dist/partzilla.mjs",
+      "require": "./dist/partzilla.js"
     }
   },
   "napi": {
@@ -38,12 +34,12 @@
   "scripts": {
     "artifacts": "napi artifacts",
     "build": "napi build --platform --release",
-    "build:lib": "bun build ./lib/read.ts --outdir dist --format cjs --target node && bun build ./lib/read.ts --outdir dist --format esm --entry-naming [name].mjs && tsc",
+    "build:lib": "bun build ./lib/partzilla.ts --outdir dist --format cjs --target node && bun build ./lib/partzilla.ts --outdir dist --format esm --target node --entry-naming [name].mjs && tsc",
     "build:debug": "napi build --platform",
     "prepublishOnly": "napi prepublish -t npm",
     "universal": "napi universal",
     "version": "napi version",
-    "test": "vitest"
+    "test": "bun test"
   },
   "devDependencies": {
     "@napi-rs/cli": "^2.18.4",

@@ -2,32 +2,35 @@
   <img align="center" height="300" src="https://raw.githubusercontent.com/mtsewrs/partzilla/refs/heads/master/assets/partzilla.webp" />
 </p>
 
-<p align="center">⚡️ Multipart parser written in rust</p>
-<!-- <p align="center">
-  <a href="https://www.npmjs.com/~sactcore" target="_blank"><img src="https://img.shields.io/npm/v/@sact/core.svg" alt="NPM Version" /></a>
-  <a href="https://www.npmjs.com/~sactcore" target="_blank"><img src="https://img.shields.io/npm/dm/@sact/core.svg" alt="NPM Downloads" /></a>
-</p> -->
+<h2 align="center">⚡️ Modern multipart parser written in rust and typescript for node and bun</h2>
+<p align="center">
+  <a href="https://www.npmjs.com/~partzilla" target="_blank"><img src="https://img.shields.io/npm/v/partzilla.svg" alt="NPM Version" /></a>
+  <a href="https://www.npmjs.com/~partzilla" target="_blank"><img src="https://img.shields.io/npm/dm/partzilla.svg" alt="NPM Downloads" /></a>
+</p>
 
-# Partzilla
-
-Fast and simple multipart parser
+## Install
 
 ```bash
 pnpm install partzilla
 bun install partzilla
 yarn install partzilla
+npm install partzilla
 ```
 
 ## Usage node
 
 ```typescript
-import { getParts } from "partzilla";
-import { getBodyBuffer } from "partzilla/utils";
+import { partzilla } from "partzilla";
 
 createServer(async (req, res) => {
-  const body = await getBodyBuffer(req);
-  const contentType = req.headers["content-type"];
-  const response = getParts(contentType, body); // const response: MultipartField[]
+  const files = partzilla(req);
+
+  for await (const file of files.next()) {
+    console.log(file); // MultipartFile
+    for await (const chunk of file.chunks()) {
+      console.log(chunk); // chunk is a buffer, stream to file or whatever
+    }
+  }
   res.end("Node!");
 });
 ```
@@ -35,25 +38,30 @@ createServer(async (req, res) => {
 ## Usage bun
 
 ```typescript
-import { getParts } from "partzilla";
+import { partzilla } from "partzilla";
 
 Bun.serve({
   async fetch(req) {
-    const body = await req.arrayBuffer();
-    const contentType = req.headers.get("content-type");
-    const response = getParts(contentType, body); // const response: MultipartField[]
+    const files = partzilla(req);
+
+    for await (const file of files.next()) {
+      console.log(file); // MultipartFile
+      for await (const chunk of file.chunks()) {
+        console.log(chunk); // chunk is a buffer, stream to file or whatever
+      }
+    }
     return new Response("Bun!");
   },
 });
 ```
 
-## MultipartField
+## MultipartFile
 
 ```typescript
-interface MultipartField {
+interface MultipartFile {
   name?: string;
-  data: Buffer;
   filename?: string;
-  contentType?: string;
+  content_type?: string;
+  chunks(): AsyncGenerator<Buffer, void, unknown>;
 }
 ```

@@ -12,3 +12,9 @@ yarn.lock
 tests
 lib
 src
+tsconfig.json
+.vscode
+assets
+bun.lockb
+Cargo.toml
+build.rs
