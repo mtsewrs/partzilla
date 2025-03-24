@@ -25,12 +25,13 @@ import { partzilla } from "partzilla";
 createServer(async (req, res) => {
   const files = partzilla(req);
 
-  for await (const file of files.next()) {
-    console.log(file); // MultipartFile
-    for await (const chunk of file.chunks()) {
-      console.log(chunk); // chunk is a buffer, stream to file or whatever
-    }
-  }
+  await multipart.next(async (file) => {
+    // file is of type MultipartFile
+    console.log(file.name);
+    console.log(file.filename);
+    console.log(file.contentType);
+    const stream = file.stream(); // ReadableStream
+  });
   res.end("Node!");
 });
 ```
@@ -44,12 +45,13 @@ Bun.serve({
   async fetch(req) {
     const files = partzilla(req);
 
-    for await (const file of files.next()) {
-      console.log(file); // MultipartFile
-      for await (const chunk of file.chunks()) {
-        console.log(chunk); // chunk is a buffer, stream to file or whatever
-      }
-    }
+    await multipart.next(async (file) => {
+      // file is of type MultipartFile
+      console.log(file.name);
+      console.log(file.filename);
+      console.log(file.contentType);
+      const stream = file.stream(); // ReadableStream
+    });
     return new Response("Bun!");
   },
 });
@@ -61,7 +63,7 @@ Bun.serve({
 interface MultipartFile {
   name?: string;
   filename?: string;
-  content_type?: string;
-  chunks(): AsyncGenerator<Buffer, void, unknown>;
+  contentType?: string;
+  stream(): ReadableStream<Buffer>;
 }
 ```

@@ -310,7 +310,7 @@ if (!nativeBinding) {
   throw new Error(`Failed to load native binding`)
 }
 
-const { MultipartFileHandle, MultipartParserWrapper } = nativeBinding
+const { MultipartFile, Multipart } = nativeBinding
 
-module.exports.MultipartFileHandle = MultipartFileHandle
-module.exports.MultipartParserWrapper = MultipartParserWrapper
+module.exports.MultipartFile = MultipartFile
+module.exports.Multipart = Multipart

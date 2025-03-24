@@ -1,64 +1,62 @@
-import { test, describe, expect, afterAll, beforeAll } from "bun:test";
-import { createServer } from "http";
+import { describe, it, expect } from "bun:test";
+import { partzilla, Multipart, MultipartFile } from "../lib/partzilla";
 
-import { partzilla } from "../lib/partzilla";
-
-export function createRequest(url: string | URL) {
-  const formData = new FormData();
-  const content = '<q id="a"><span id="b">hey!</span></q>';
-  const contentType = "text/html;charset=utf-8";
-  const blob = new Blob([content], { type: contentType });
-  formData.append("file1", blob);
-  formData.append("file2", blob);
-  const request = new Request(url, {
-    body: formData,
-    method: "POST",
-  });
-
-  return { request, content, contentType };
+async function streamToString(stream: ReadableStream<Buffer>): Promise<string> {
+  const reader = stream.getReader();
+  const decoder = new TextDecoder();
+  let result = "";
+  while (true) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    result += decoder.decode(value, { stream: true });
+  }
+  return result;
 }
 
-const server = createServer(async (req, res) => {
-  const parser = partzilla(req);
+describe("Multipart parser", () => {
+  it("parse multipart content correctly", async () => {
+    const boundary = "boundary123";
+    const contentType = `multipart/form-data; boundary="${boundary}"`;
 
-  const files: { data: string; contentType: string }[] = [];
-  for await (const file of parser.next()) {
-    const data: Buffer[] = [];
-    for await (const chunk of file.chunks()) {
-      data.push(chunk);
-    }
-    files.push({
-      contentType: file.content_type ?? "nope",
-      data: Buffer.concat(data as unknown as Uint8Array[]).toString("utf-8"),
+    const part1 =
+      `--${boundary}\r\n` +
+      `Content-Disposition: form-data; name="text"\r\n\r\n` +
+      `Hello World\r\n`;
+    const part2 =
+      `--${boundary}\r\n` +
+      `Content-Disposition: form-data; name="file"; filename="example.txt"\r\n` +
+      `Content-Type: text/plain\r\n\r\n` +
+      `File content\r\n`;
+    const part3 = `--${boundary}--\r\n`;
+
+    const blob = new Blob([part1, part2, part3], { type: contentType });
+
+    const req = new Request("http://localhost", {
+      method: "POST",
+      headers: { "content-type": contentType },
+      body: blob.stream(),
     });
-  }
 
-  res.writeHead(200, { "Content-Type": "application/json" });
-  res.end(JSON.stringify(files));
-});
+    const multipart: Multipart = partzilla(req);
 
-describe("Get Parts Node stream", () => {
-  beforeAll(() => {
-    server.listen(8080);
-  });
-  afterAll(() => {
-    server.close();
-  });
+    const partsCollected: MultipartFile[] = [];
 
-  test("Should parse inconing multipart", async () => {
-    const { request, content, contentType } = createRequest(
-      "http://localhost:8080"
-    );
+    await multipart.next(async (part) => {
+      partsCollected.push(part);
+    });
 
-    const response = await fetch(request);
-    expect(response.ok).toBe(true);
-    const json = (await response.json()) as {
-      data: string;
-      contentType: string;
-    }[];
-    expect(json.length).toBe(2);
-    const field = json[0];
-    expect(field.data).toEqual(content);
-    expect(field.contentType).toEqual(contentType);
+    expect(partsCollected.length).toBe(2);
+
+    const firstPart = partsCollected[0];
+    expect(firstPart.name).toBe("text");
+    const firstPartText = await streamToString(firstPart.stream());
+    expect(firstPartText).toBe("Hello World");
+
+    const secondPart = partsCollected[1];
+    expect(secondPart.name).toBe("file");
+    expect(secondPart.filename).toBe("example.txt");
+    expect(secondPart.contentType).toBe("text/plain");
+    const secondPartText = await streamToString(secondPart.stream());
+    expect(secondPartText).toBe("File content");
   });
 });
