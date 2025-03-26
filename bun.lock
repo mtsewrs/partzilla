@@ -1,0 +1,33 @@
+{
+  "lockfileVersion": 1,
+  "workspaces": {
+    "": {
+      "name": "partzilla",
+      "devDependencies": {
+        "@napi-rs/cli": "^2.18.4",
+      },
+      "optionalDependencies": {
+        "partzilla-darwin-arm64": "1.0.0",
+        "partzilla-darwin-x64": "1.0.0",
+        "partzilla-linux-x64-gnu": "1.0.0",
+        "partzilla-win32-x64-msvc": "1.0.0",
+      },
+      "peerDependencies": {
+        "typescript": "^5.6.3",
+      },
+    },
+  },
+  "packages": {
+    "@napi-rs/cli": ["@napi-rs/cli@2.18.4", "", { "bin": { "napi": "scripts/index.js" } }, "sha512-SgJeA4df9DE2iAEpr3M2H0OKl/yjtg1BnRI5/JyowS71tUWhrfSu2LT0V3vlHET+g1hBVlrO60PmEXwUEKp8Mg=="],
+
+    "partzilla-darwin-arm64": ["partzilla-darwin-arm64@1.0.0", "", { "os": "darwin", "cpu": "arm64" }, "sha512-CkYzBl7PXOxsduBba8V72pJ9j0A0RyikeQfbZ0UcEnuM9u2OyDk3emSOpc6OOaWHKjdwLZ0LGhGL0dw00tAYrw=="],
+
+    "partzilla-darwin-x64": ["partzilla-darwin-x64@1.0.0", "", { "os": "darwin", "cpu": "x64" }, "sha512-vP4lwbRgeiGI1tAL8JKM1ppQjIWg1Bfv695UwYiE6wWo5dyitt5DT0HWM/wZsTaF1p6gqiwQy50Cv6c7FvDMCQ=="],
+
+    "partzilla-linux-x64-gnu": ["partzilla-linux-x64-gnu@1.0.0", "", { "os": "linux", "cpu": "x64" }, "sha512-bmE4gJYW36S+jy/hWNCahp8M5t1S668Lyo7KbqkyWG/GTJ6jI3Xf7uQyxsf+G5Xg0aW5z3d2QjGeJvZKUcF/fw=="],
+
+    "partzilla-win32-x64-msvc": ["partzilla-win32-x64-msvc@1.0.0", "", { "os": "win32", "cpu": "x64" }, "sha512-BR59cF0a3v54aIFNGk81I85iFlIji9dKoGjHWm1pdrZ157WkclahMc+gu+xIhBVy2h5f+c4SSJpHRkhG8yNgTw=="],
+
+    "typescript": ["typescript@5.8.2", "", { "bin": { "tsc": "bin/tsc", "tsserver": "bin/tsserver" } }, "sha512-aJn6wq13/afZp/jT9QZmwEjDqqvSGp1VT5GVg+f/t6/oVyrgXM6BY1h9BRh/O5p3PlUPAe+WuiEZOmb/49RqoQ=="],
+  }
+}

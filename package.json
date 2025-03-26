@@ -10,15 +10,8 @@
     "registry": "https://registry.npmjs.org/",
     "access": "public"
   },
-  "main": "./dist/partzilla.js",
-  "types": "./dist/partzilla.d.ts",
-  "exports": {
-    ".": {
-      "types": "./dist/partzilla.d.ts",
-      "import": "./dist/partzilla.mjs",
-      "require": "./dist/partzilla.js"
-    }
-  },
+  "main": "./lib/partzilla.js",
+  "types": "./lib/partzilla.d.ts",
   "napi": {
     "name": "partzilla",
     "triples": {
@@ -34,25 +27,23 @@
   "scripts": {
     "artifacts": "napi artifacts",
     "build": "napi build --platform --release",
-    "build:lib": "bun build ./lib/partzilla.ts --outdir dist --format cjs --target node && bun build ./lib/partzilla.ts --outdir dist --format esm --target node --entry-naming [name].mjs && tsc",
     "build:debug": "napi build --platform",
     "prepublishOnly": "napi prepublish -t npm",
     "universal": "napi universal",
     "version": "napi version",
-    "test": "bun test"
+    "test": "vitest"
   },
   "devDependencies": {
-    "@napi-rs/cli": "^2.18.4",
-    "@types/bun": "latest"
+    "@napi-rs/cli": "^2.18.4"
   },
   "peerDependencies": {
     "typescript": "^5.6.3"
   },
-  "packageManager": "bun@1.1.26",
+  "packageManager": "bun@1.2.6",
   "optionalDependencies": {
-    "partzilla-win32-x64-msvc": "0.0.6",
-    "partzilla-darwin-x64": "0.0.6",
-    "partzilla-linux-x64-gnu": "0.0.6",
-    "partzilla-darwin-arm64": "0.0.6"
+    "partzilla-win32-x64-msvc": "1.0.0",
+    "partzilla-darwin-x64": "1.0.0",
+    "partzilla-linux-x64-gnu": "1.0.0",
+    "partzilla-darwin-arm64": "1.0.0"
   }
 }

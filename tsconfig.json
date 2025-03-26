@@ -3,7 +3,6 @@
   "display": "Default",
   "compilerOptions": {
     "outDir": "dist",
-    "types": ["@types/bun"],
     "emitDeclarationOnly": true,
     "composite": false,
     "declaration": true,
@@ -25,6 +24,6 @@
     "strict": true,
     "strictNullChecks": true
   },
-  "exclude": ["node_modules"],
+  "exclude": ["node_modules", "index.js", "index.d.ts"],
   "include": ["lib/*"]
 }

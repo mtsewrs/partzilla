@@ -1,5 +1,5 @@
 import { describe, it, expect } from "bun:test";
-import { partzilla, Multipart, MultipartFile } from "../lib/partzilla";
+import { partzilla, MultipartFile } from "../lib/partzilla";
 
 async function streamToString(stream: ReadableStream<Buffer>): Promise<string> {
   const reader = stream.getReader();
@@ -31,13 +31,17 @@ describe("Multipart parser", () => {
 
     const blob = new Blob([part1, part2, part3], { type: contentType });
 
-    const req = new Request("http://localhost", {
+    const req = new Request("http://localhost:3000", {
       method: "POST",
-      headers: { "content-type": contentType },
-      body: blob.stream(),
+      headers: {
+        "content-type": contentType,
+        "content-length": String(blob.size),
+        host: "localhost:8080",
+      },
+      body: blob,
     });
 
-    const multipart: Multipart = partzilla(req);
+    const multipart = partzilla(req);
 
     const partsCollected: MultipartFile[] = [];
 
