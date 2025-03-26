@@ -10,7 +10,6 @@ yarn.lock
 *.node
 .yarn
 tests
-lib
 src
 tsconfig.json
 .vscode
