@@ -41,7 +41,10 @@ describe("Multipart parser", () => {
       body: blob,
     });
 
-    const multipart = partzilla(req);
+    const multipart = partzilla(
+      req.body!,
+      req.headers.get("content-type") ?? ""
+    );
 
     const partsCollected: MultipartFile[] = [];
 
